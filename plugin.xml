@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Generate Template"
+            id="io.github.theguy191919.customdoc.commands.category">
+      </category>
+      <command
+            id="io.github.theguy191919.customdoc.commands.generate"
+            name="Generate">
+      </command>
+      <command
+            id="io.github.theguy191919.customdoc.commands.clean"
+            name="Clean">
+      </command>
+      <command
+            id="io.github.theguy191919.customdoc.commands.cleanandgenerate"
+            name="Clean and Generate">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="io.github.theguy191919.customdoc.commands.clean"
+            class="io.github.theguy191919.customdoc.handlers.CleanHandler">
+      </handler>
+      <handler
+            class="io.github.theguy191919.customdoc.handlers.CleanAndGenerateHandler"
+            commandId="io.github.theguy191919.customdoc.commands.cleanandgenerate">
+      </handler>
+      <handler
+            class="io.github.theguy191919.customdoc.handlers.GenerateHandler"
+            commandId="io.github.theguy191919.customdoc.commands.generate">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="io.github.theguy191919.customdoc.commands.cleanandgenerate"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="Template"
+               mnemonic="M"
+               id="io.github.theguy191919.customdoc.menus.sampleMenu">
+            <command
+                  commandId="io.github.theguy191919.customdoc.commands.generate"
+                  mnemonic="S"
+                  id="io.github.theguy191919.customdoc.menus.sampleCommand">
+            </command>
+            <command
+                  commandId="io.github.theguy191919.customdoc.commands.clean"
+                  id="io.github.theguy191919.customdoc.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+            <command
+                  commandId="io.github.theguy191919.customdoc.commands.cleanandgenerate"
+                  id="io.github.theguy191919.customdoc.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>
