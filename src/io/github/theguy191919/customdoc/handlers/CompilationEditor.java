@@ -108,11 +108,13 @@ public class CompilationEditor {
 			listRewrite.insertFirst(placeHolder, null);
 			
 			for (MethodDeclaration md : type.getMethods()) {
-//				System.out.println(this.generateMethodTemplate(md));
-				if (md.getBody() != null) {
-					ListRewrite listRewriteMethod = rewriter.getListRewrite(md.getBody(), Block.STATEMENTS_PROPERTY);
-					ASTNode placeHolderMethod = rewriter.createStringPlaceholder(generateComment(generateMethodTemplate(md)), ASTNode.BLOCK_COMMENT);
-					listRewriteMethod.insertFirst(placeHolderMethod, null);
+				if (!md.isConstructor()) {
+//					System.out.println(this.generateMethodTemplate(md));
+					if (md.getBody() != null) {
+						ListRewrite listRewriteMethod = rewriter.getListRewrite(md.getBody(), Block.STATEMENTS_PROPERTY);
+						ASTNode placeHolderMethod = rewriter.createStringPlaceholder(generateComment(generateMethodTemplate(md)), ASTNode.BLOCK_COMMENT);
+						listRewriteMethod.insertFirst(placeHolderMethod, null);
+					}
 				}
 			}
 		}
@@ -142,15 +144,17 @@ public class CompilationEditor {
 				sb.append("\tthis." + vdf.getName() + " - " + fd.getType() + "\n");
 				if (fd.getType().resolveBinding().getDeclaredMethods() != null) {
 					for (IMethodBinding mb : fd.getType().resolveBinding().getDeclaredMethods()) {
-						String param = "(";
-						for (ITypeBinding tb : mb.getParameterTypes()) {
-							param += tb.getName() + ", ";
+						if (!mb.isConstructor()) {
+							String param = "(";
+							for (ITypeBinding tb : mb.getParameterTypes()) {
+								param += tb.getName() + ", ";
+							}
+							if (mb.getParameterTypes().length != 0) {
+								param = param.substring(0, param.length() - 2);
+							}
+							param += ")";
+							methodOnField.add("\tthis." + vdf.getName() + "." + mb.getName() + param + " - " + mb.getReturnType().getName());
 						}
-						if (mb.getParameterTypes().length != 0) {
-							param = param.substring(0, param.length() - 2);
-						}
-						param += ")";
-						methodOnField.add("\tthis." + vdf.getName() + "." + mb.getName() + param + " - " + mb.getReturnType().getName());
 					}
 				}
 			}
@@ -161,7 +165,7 @@ public class CompilationEditor {
 			sb.append("\tNothing\n");
 		}
 		for (MethodDeclaration md : typeDeclaration.getMethods()) {
-			if (md.getReturnType2() != null) {
+			if (md.getReturnType2() != null && !md.isConstructor()) {
 				String param = md.typeParameters().toString().replaceAll("\\[", "(").replaceAll("\\]", ")");
 				sb.append("\tthis." + md.getName() + param + " - " + md.getReturnType2() + "\n");
 			}
@@ -186,15 +190,17 @@ public class CompilationEditor {
 			sb.append("\t" + svd.getName() + " - " + svd.getType() + "\n");
 			if (svd.getType().resolveBinding().getDeclaredMethods() != null) {
 				for (IMethodBinding mb : svd.getType().resolveBinding().getDeclaredMethods()) {
-					String param = "(";
-					for (ITypeBinding tb : mb.getParameterTypes()) {
-						param += tb.getName() + ", ";
+					if (!mb.isConstructor()) {
+						String param = "(";
+						for (ITypeBinding tb : mb.getParameterTypes()) {
+							param += tb.getName() + ", ";
+						}
+						if (mb.getParameterTypes().length != 0) {
+							param = param.substring(0, param.length() - 2);
+						}
+						param += ")";
+						methodOnField.add("\t" + svd.getName() + "." + mb.getName() + param + " - " + mb.getReturnType().getName());
 					}
-					if (mb.getParameterTypes().length != 0) {
-						param = param.substring(0, param.length() - 2);
-					}
-					param += ")";
-					methodOnField.add("\t" + svd.getName() + "." + mb.getName() + param + " - " + mb.getReturnType().getName());
 				}
 			}
 		}
@@ -266,7 +272,7 @@ public class CompilationEditor {
 	}
 	
 	private static boolean containCommentBeginningWith(String str, String beginning) {
-		int beginningIndex = str.indexOf("/**" + beginning);
+		int beginningIndex = str.indexOf("/*" + beginning);
 		if (beginningIndex == -1) {
 			return false;
 		}
@@ -281,7 +287,7 @@ public class CompilationEditor {
 		if (!containCommentBeginningWith(str, beginning)) {
 			return str;
 		}
-		int beginningIndex = str.indexOf("/**" + beginning);
+		int beginningIndex = str.indexOf("/*" + beginning);
 		int endingIndex = str.indexOf("*/", beginningIndex);
 		String beginningSection = str.substring(0, beginningIndex);
 		String endingSection = str.substring(endingIndex + 2, str.length());
