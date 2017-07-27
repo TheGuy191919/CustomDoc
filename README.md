@@ -32,10 +32,10 @@ Class Template
 	 *   this.generics - ArrayList<String>
 	 * Method
 	 *   this.toString() - String
-	 *   this.toString() - String
+	 *   this.toString(HashMap<String,String>) - String
 	 *   this.getType() - String
-	 *   this.getMethodOfField() - ArrayList<String>
-	 *   this.getType() - String
+	 *   this.getMethodOfField(HashMap<String,String>) - ArrayList<String>
+	 *   this.getType(HashMap<String,String>) - String
 	 *   this.getName() - String
 	 * Method on field
 	 *   this.name.charAt(int) - char
