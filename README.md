@@ -303,3 +303,6 @@ Method Template #2
 	 * 
 	 */
 ----
+## Warning
+* This program is provided as is and I bear no responsabality from the usage of the program.
+* I cannot guarantee the correctness of the program, always double check the output personally. 
