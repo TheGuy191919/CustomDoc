@@ -10,7 +10,7 @@ This is an eclipse plugin to generate class and method templates requried for CS
 
 ----
 ## Install
-1. Download the compiled plugin that has already been packaged into an update site from [here](https://github.com/TheGuy191919/CustomDoc/blob/master/CustomDoc.zip).
+1. Download the compiled plugin that has already been packaged into an update site from [here](https://github.com/TheGuy191919/CustomDoc/raw/master/CustomDoc.zip).
 2. Open eclipse and go to Help -> Install new Software...
 3. In the install window, click the "Add" button.
 4. In the Add Respoitory window, click the "Archive" button and locate the zip file downloaded from step 1.
