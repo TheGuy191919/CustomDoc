@@ -26,6 +26,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.TypeParameter;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
@@ -166,7 +167,16 @@ public class CompilationEditor {
 		}
 		for (MethodDeclaration md : typeDeclaration.getMethods()) {
 			if (md.getReturnType2() != null && !md.isConstructor()) {
-				String param = md.typeParameters().toString().replaceAll("\\[", "(").replaceAll("\\]", ")");
+				String param = "(";
+				for (Object object : md.parameters()) {
+					SingleVariableDeclaration tb = (SingleVariableDeclaration) object; 
+					param += tb.resolveBinding().getType().getName() + ", ";
+				}
+				if (!md.parameters().isEmpty()) {
+					param = param.substring(0, param.length() - 2);
+				}
+				param += ")";
+				//System.out.println(md.parameters().size());
 				sb.append("\tthis." + md.getName() + param + " - " + md.getReturnType2() + "\n");
 			}
 		}
