@@ -2,7 +2,7 @@
 # CustomDoc
 ----
 ## Introduction
-This is an eclipse plugin to generate class and method templates requried for CS2510 Fundimentals 2 at NEU. Examples are located at the bottom.  
+This is an eclipse plugin to generate class and method templates required for CS2510 Fundamentals 2 at NEU. Examples are located at the bottom.  
 
 ----
 ## Requirement
@@ -13,7 +13,7 @@ This is an eclipse plugin to generate class and method templates requried for CS
 1. Download the compiled plugin that has already been packaged into an update site from [here](https://github.com/TheGuy191919/CustomDoc/raw/master/CustomDoc.zip).
 2. Open eclipse and go to Help -> Install new Software...
 3. In the install window, click the "Add" button.
-4. In the Add Respoitory window, click the "Archive" button and locate the zip file downloaded from step 1.
+4. In the Add Repository window, click the "Archive" button and locate the zip file downloaded from step 1.
 5. Click ok and install all the items shows on the screen.
 6. Wait for the installation to complete, Accept the license and eclipse will ask you to restart when it is all done.
 
@@ -304,5 +304,5 @@ Method Template #2
 	 */
 ----
 ## Warning
-* This program is provided as is and I bear no responsabality from the usage of the program.
-* I cannot guarantee the correctness of the program, always double check the output personally. 
+* This program is provided as is and I bear no responsibility from the usage of the program.
+* I cannot guarantee the correctness of the program, always double check the output personally.
